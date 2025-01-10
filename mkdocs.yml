@@ -1,0 +1,55 @@
+site_name: ISS-AF Howto Documentation
+site_description: Documentation for usage information of ISS Analisys Facility
+site_author: Adrian Sevcenco
+site_url: https://issaf.spacescience.ro/documentation
+
+repo_name: "issaf-doc"
+repo_url: https://github.com/adriansev/issaf-doc
+edit_uri: '-/edit/master/docs'
+
+plugins:
+    - search
+    - autorefs
+    - include-markdown:
+        preserve_includer_indent: false
+        dedent: false
+        trailing_newlines: true
+        comments: false
+        rewrite_relative_urls: true
+        heading_offset: 0
+        start: <!--start-->
+        end: <!--end-->
+        opening_tag: "{%"
+        closing_tag: "%}"
+
+
+markdown_extensions:
+    - admonition
+    - attr_list
+    - footnotes
+    - md_in_html
+    - pymdownx.superfences
+    - pymdownx.highlight:
+        use_pygments: true
+        pygments_lang_class: true
+    - pymdownx.inlinehilite
+    - tables
+    - toc:
+        permalink: "#"
+
+theme:
+    name: material
+    # disable google fonts, not GPRD compliant
+    font: false
+    features:
+        - navigation.tracking
+        
+        # - toc.integrate
+
+extra_css:
+  - stylesheets/fonts.css
+
+nav:
+    - 'Introduction': index.md
+    - 'SSH Usage' : ssh.md
+
