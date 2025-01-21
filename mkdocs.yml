@@ -43,7 +43,6 @@ theme:
     font: false
     features:
         - navigation.tracking
-        
         # - toc.integrate
 
 extra_css:
@@ -52,4 +51,5 @@ extra_css:
 nav:
     - 'Introduction': index.md
     - 'SSH Usage' : ssh.md
+    - 'SLURM Usage' : slurm.md
 
