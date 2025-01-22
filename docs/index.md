@@ -52,6 +52,13 @@ To be converted to `fair share`.
 ### Storage resources
 
 * `/home` should be used for small personal files, small analysis codes
+* `/software` is dedicated for software frameworks (locally compiled)
 * each user have an symbolic link `$HOME/data` pointing to `/data/data_${USER}` pointing to a much larger storage area
 * for requirements over 1TB, a request should be sent to administrator for creation of a personal directory in `/data{2..7}`
-* `/software` is dedicated for software frameworks (locally compiled)
+
+    !!! note "Institute management approval required"
+
+        For data usage for more than 1 TB a request to institute management is required.
+        First step is to send an email to institute director with cc to `issaf AT spacescience DOT ro`
+        then more information will follow in subsequent e-mails.
+
