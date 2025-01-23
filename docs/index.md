@@ -29,15 +29,18 @@ CLUSTER:*    up     6     6     768     768      0      0     1         20-00:00
 
 ```
 Filesystem               Size  Mounted on
-/dev/md126p1             1.8T  /export     <-- /home, RAID1 NVME
-/dev/md123               1.8T  /software   <-- RAID1 HDD
-/dev/md120p1              66T  /data       <-- RAID6 8xHDD
-/dev/md121p1             200T  /data2      <-- RAID6 12xHDD
-/dev/md119p1             200T  /data3      <-- RAID6 12xHDD
-/dev/md124p1             200T  /data4      <-- RAID6 12xHDD
-10.99.99.200:/storage01  200T  /data5      <-- RAID6 12xHDD
-10.99.99.200:/storage02  200T  /data6      <-- RAID6 12xHDD
-10.99.99.200:/storage03  200T  /data7      <-- RAID6 12xHDD
+/dev/md126p1             1.8T  /export      <-- /home, RAID1 NVME
+/dev/md123               1.8T  /software    <-- RAID1 HDD
+/dev/md120p1              66T  /data        <-- RAID6 8xHDD
+/dev/md121p1             200T  /data2       <-- RAID6 12xHDD
+/dev/md119p1             200T  /data3       <-- RAID6 12xHDD
+/dev/md124p1             200T  /data4       <-- RAID6 12xHDD
+10.99.99.200:/storage01  200T  /data5       <-- RAID6 12xHDD
+10.99.99.200:/storage02  200T  /data6       <-- RAID6 12xHDD
+10.99.99.200:/storage03  200T  /data7       <-- RAID6 12xHDD
+10.99.99.201:/storage01  200T  /data8       <-- RAID6 12xHDD
+10.99.99.201:/storage02  200T  /data9       <-- RAID6 12xHDD
+10.99.99.201:/storage03  200T  /data10      <-- RAID6 12xHDD
 ```
 
 ## Resource usage
