@@ -45,7 +45,14 @@ Filesystem               Size  Mounted on
 
 
 ### Compute resources
-For the moment, it's `"first come, first served"`.   
+
+!!! warning
+
+    No compute loads, or long running processing should be run on the `front-end` node.   
+    The `front-end` is both `login` and `service` node and this can impact overall usage.   
+
+
+Slurm scheduling is for the moment of type `"first come, first served"`.   
 To be converted to `fair share`.
 
 
