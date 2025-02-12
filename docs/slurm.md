@@ -2,7 +2,11 @@
 
 ## Upstream documentation links
 
-[Slurm Documentation - sbatch](https://slurm.schedmd.com/sbatch.html)
+Slurm installed version: `22.05.9`   
+   
+[Slurm Documentation](https://slurm.schedmd.com/archive/slurm-22.05.9/)   
+   
+[Slurm Documentation - sbatch](https://slurm.schedmd.com/archive/slurm-22.05.9/sbatch.html)   
 
 ## Sugested usage
 
