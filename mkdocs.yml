@@ -52,4 +52,6 @@ nav:
     - 'Introduction': index.md
     - 'SSH Usage' : ssh.md
     - 'SLURM Usage' : slurm.md
+    - 'CVMFS software' : cvmfs_soft.md
+
 
