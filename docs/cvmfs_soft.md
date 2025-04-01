@@ -58,3 +58,33 @@ Information taken from `/cvmfs/geant4.cern.ch/README`
     ```
 
 
+## ALICE
+
+!!! info "Usage"
+
+    Find list of packages [here](https://alimonitor.cern.ch/packages/?packagename=O2Physics%3A%3Adaily&packagedeps=&cvmfsstatus=&platforms=&submitBt=%BB)
+
+    Load package environment with:
+    ```
+    /cvmfs/alice.cern.ch/bin/alienv enter O2Physics::daily-20250401-0000-1
+    ```
+
+    Or to load the environment in current shell (or within the analysis scripts)
+    ```
+    export O2PHYS_TAG=daily-20250401-0000-1 WORK_DIR="/cvmfs/alice.cern.ch" ALIBUILD_ARCH_PREFIX="el9-x86_64/Packages" DISABLE_GPU=1
+    NOT_FOUND=""
+
+    O2PHYS_DIR="${WORK_DIR}/${ALIBUILD_ARCH_PREFIX}/O2Physics/${O2PHYS_TAG}"
+    [[ ! -d "${O2PHYS_DIR}" ]] && { ALIBUILD_ARCH_PREFIX="el7-x86_64/Packages"; NOT_FOUND="1"; }
+
+    if [[ -n "${NOT_FOUND}" ]]; then
+        O2PHYS_DIR="${WORK_DIR}/${ALIBUILD_ARCH_PREFIX}/O2Physics/${O2PHYS_TAG}"
+        [[ ! -d "${O2PHYS_DIR}" ]] && { echo "O2Physics was not found in ${O2PHYS_DIR}"; exit 1; }
+    fi
+
+    O2PHYSICS_INIT="${O2PHYS_DIR}/etc/profile.d/init.sh"
+    [[ ! -f "${O2PHYSICS_INIT}" ]] && { echo "${O2PHYSICS_INIT} not available"; return 1; }
+
+    source "${O2PHYSICS_INIT}" &> /dev/null
+    ```
+
