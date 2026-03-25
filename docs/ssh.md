@@ -94,4 +94,117 @@ Useful to use :
 `fusermount -u <local_mountpoint>`
 
 
+## SSH ProxyJump
+
+SSH proxyjump is a way to hop between hosts.  
+The general way to use is:  
+```
+ssh -J ssh_id_of_jump_host ssh_id_of_destination_host
+```
+
+in particular, for `issaf` case (with `issaf` alias defined above):  
+```
+ssh -J issaf ssh_id_of_destination_host
+
+```
+
+or, defining an alias that contain this information in `.ssh/config` file:  
+```
+Host issaf
+HostName issaf.spacescience.ro
+User my_issaf_username
+Port 60000
+
+Host my_host_with_private_ip
+HostName private_ip_of_my_host
+User my_user_name_on_this_host
+Port my_port_on_this_host
+ProxyJump issaf
+```
+
+The requirements for this to work is to establish passwordless authentication  
+between all pairs of hosts: `client->issaf`, `client->destination_host`, `issaf->destination_host`.  
+This would allow to use `my_host_with_private_ip` directly and transparently(in all tools using ssh).  
+
+
+
+## SSH PortForward
+
+Secure Shell (SSH) port forwarding, often called SSH tunneling, is a technique that redirects network traffic
+through an encrypted SSH connection. This method creates a secure tunnel between two computers,
+allowing you to safely transmit data even across unsecured networks like public Wi-Fi or the internet.  
+
+
+### Local port forwarding
+
+Forwards traffic from your local machine to a remote server. Useful for accessing remote services as if they were running locally.
+General structure of usage(for local usage):  
+```
+ssh -L ${PORT_LOCAL}:${TARGET_HOST}:${TARGET_PORT} ssh_remote_server_alias
+```
+
+e.g. if there is a remote service listening on 9090 (but firewalled and/or no direct access to it)  
+and remote server have an ssh alias named `my_remote_server` (ssh alias that could include the ProxyJump setup), one would use:  
+```
+ssh -L some_local_port_bigger_than_1024:localhost:9090 my_remote_server
+```
+In this way on `localhost:some_local_port_bigger_than_1024` one can connect to `my_remote_server:9090`
+
+Recommended way to use ssh for local port forwarding:
+```
+ssh -f -q -NTC -o ServerAliveInterval=5 -o ServerAliveCountMax=6 -o ExitOnForwardFailure=no -L ${PORT_LOCAL}:${TARGET_HOST}:${TARGET_PORT} ssh_remote_server_alias
+
+```
+
+
+Arguments details:  
+```
+-f  Requests ssh to go to background just before command execution.  This is useful if ssh is going to ask for passwords or passphrases, but the user wants it in the background. This implies -n.
+-n  Redirects stdin from /dev/null (actually, prevents reading from stdin).  This must be used when ssh is run in the background.
+-N  Do not execute a remote command.  This is useful for just forwarding ports.
+-T  Disable pseudo-terminal allocation.
+-C  Requests compression of all data (including stdin, stdout, stderr, and data for forwarded X11, TCP and UNIX-domain connections).
+
+-L [bind_address:]port:host:hostport
+Specifies that connections to the given TCP port or Unix socket on the local (client) host are to be forwarded to the given host and port, or Unix socket, on the remote
+side. This works by allocating a socket to listen to either a TCP port on the local side, optionally bound to the specified bind_address, or to a Unix socket.
+Whenever a connection is made to the local port or socket, the connection is forwarded over the secure channel, and a connection is made to either host port hostport,
+or the Unix socket remote_socket, from the remote machine.
+Port forwardings can also be specified in the configuration file.  Only the superuser can forward privileged ports.
+IPv6 addresses can be specified by enclosing the address in square brackets.
+By default, the local port is bound in accordance with the GatewayPorts setting. However, an explicit bind_address may be used to bind the connection to a specific
+address. The bind_address of .localhost. indicates that the listening port be bound for local use only,
+while an empty address or .*. indicates that the port should be available from all interfaces.
+```
+
+
+### Dynamic port forwarding
+
+Dynamic port forwarding creates a SOCKS proxy that routes network traffic through a secure SSH tunnel.
+This powerful feature creates a local SOCKS proxy server on your machine that forwards all traffic through the SSH connection to the remote server,
+which then makes the actual requests to the internet.  
+This is useful to access resources that are available only from institutional IP range.  
+General structure of the command:
+```
+ssh -D local_port ssh_remote_server_alias
+```
+
+e.g.:
+```
+ssh -D local_port issaf
+```
+
+Recommended way to use ssh for creating a socks proxy:
+```
+ssh -o "IPQoS=throughput" -fNTC -D local_port_for_proxy issaf
+```
+
+For easy usage in browsers see [FoxyProxy Extension](https://getfoxyproxy.org/help/browsers/)  
+Detailed help for FoxyProxy usage:
+
+* [How to Use Your Proxy Service with Chrome and the FoxyProxy Extension](https://help.getfoxyproxy.org/index.php/knowledge-base/how-to-use-your-proxy-service-with-chrome-and-foxyproxy-extension/)  
+
+* [How to Use Your Proxy Service with Firefox and the FoxyProxy Extension](https://help.getfoxyproxy.org/index.php/knowledge-base/how-to-use-your-proxy-service-with-firefox-and-foxyproxy-extension/)  
+
+
 
