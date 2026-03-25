@@ -221,8 +221,21 @@ For easy usage in browsers see [FoxyProxy Extension](https://getfoxyproxy.org/he
 Detailed help for FoxyProxy usage:
 
 * [How to Use Your Proxy Service with Chrome and the FoxyProxy Extension](https://help.getfoxyproxy.org/index.php/knowledge-base/how-to-use-your-proxy-service-with-chrome-and-foxyproxy-extension/)  
-
 * [How to Use Your Proxy Service with Firefox and the FoxyProxy Extension](https://help.getfoxyproxy.org/index.php/knowledge-base/how-to-use-your-proxy-service-with-firefox-and-foxyproxy-extension/)  
 
+
+
+
+## Resources
+
+* [DigitalOcean:: SSH Essentials: Working with SSH Servers, Clients, and Keys](https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys)
+* [DigitalOcean:: How to Create an SSH Key in Linux: Easy Step-by-Step Guide](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server)
+* [DigitalOcean:: Create SSH Keys with OpenSSH on macOS, Linux, or Windows](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-openssh-on-macos-or-linux)
+* [DigitalOcean:: How to Set Up SSH Keys on Ubuntu: A Comprehensive Guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-22-04)
+* [DigitalOcean:: How To Use SSHFS to Mount Remote File Systems Over SSH](https://www.digitalocean.com/community/tutorials/how-to-use-sshfs-to-mount-remote-file-systems-over-ssh)
+* [DigitalOcean:: SSH Port Forwarding](https://www.digitalocean.com/community/tutorials/ssh-port-forwarding)
+* [DigitalOcean:: How To Create SSH Keys With PuTTY to Connect to a VPS](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps)
+* [WayneStateUni:: How to Generate and Use SSH Keys with PuTTY](https://services.wayne.edu/TDClient/277/Portal/KB/ArticleDet?ID=20243)
+* [ssh.com:: Using PuTTYgen on Windows to generate SSH key pairs](https://www.ssh.com/academy/ssh/putty/windows/puttygen)
 
 
