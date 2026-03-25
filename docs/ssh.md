@@ -126,6 +126,12 @@ The requirements for this to work is to establish passwordless authentication
 between all pairs of hosts: `client->issaf`, `client->destination_host`, `issaf->destination_host`.  
 This would allow to use `my_host_with_private_ip` directly and transparently(in all tools using ssh).  
 
+!!! info "Example of usage"
+    ```
+    scp my_file issaf:~/  
+    rsync my_file issaf:~/  
+    ```
+
 
 
 ## SSH PortForward
