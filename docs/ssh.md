@@ -16,13 +16,13 @@ ssh-keygen -t ed25519 -N ''
 
 ```
 
-2. Content of `$HOME/.ssh/id_ed25519.pub` is either sent to admin for
-addition to user `.ssh/authorized_keys`
-
-    OR
-
-    the key is copied with `ssh-copy-id` command:   
-    `ssh-copy-id -i ~/.ssh/id_ed25519 -p 60000 <username>@issaf.spacescience.ro`
+2. Content of `$HOME/.ssh/id_ed25519.pub` is either:
+    * sent to admin for addition to user `.ssh/authorized_keys`  
+    OR  
+    * the key is copied with `ssh-copy-id` command:   
+    ``` bash
+    ssh-copy-id -i ~/.ssh/id_ed25519 -p 60000 <username>@issaf.spacescience.ro
+    ```
 
 
 3. Now test the passwordless authentication
@@ -94,9 +94,9 @@ Useful to use :
 `fusermount -u <local_mountpoint>`
 
 
-## SSH ProxyJump
+## SSH through host connect
 
-SSH proxyjump is a way to hop between hosts.  
+SSH ProxyJump option is a way to hop between hosts.  
 The general way to use is:  
 ```
 ssh -J ssh_id_of_jump_host ssh_id_of_destination_host
@@ -140,7 +140,7 @@ allowing you to safely transmit data even across unsecured networks like public 
 Forwards traffic from your local machine to a remote server. Useful for accessing remote services as if they were running locally.
 General structure of usage(for local usage):  
 ```
-ssh -L ${PORT_LOCAL}:${TARGET_HOST}:${TARGET_PORT} ssh_remote_server_alias
+ssh -L PORT_LOCAL:TARGET_HOST:TARGET_PORT ssh_remote_server_alias
 ```
 
 e.g. if there is a remote service listening on 9090 (but firewalled and/or no direct access to it)  
@@ -152,9 +152,27 @@ In this way on `localhost:some_local_port_bigger_than_1024` one can connect to `
 
 Recommended way to use ssh for local port forwarding:
 ```
-ssh -f -q -NTC -o ServerAliveInterval=5 -o ServerAliveCountMax=6 -o ExitOnForwardFailure=no -L ${PORT_LOCAL}:${TARGET_HOST}:${TARGET_PORT} ssh_remote_server_alias
+ssh -fqNTC -o ServerAliveInterval=5 -o ServerAliveCountMax=6 -o ExitOnForwardFailure=no -L ${PORT_LOCAL}:${TARGET_HOST}:${TARGET_PORT} ssh_remote_server_alias
 
 ```
+
+
+In the `.ssh/config` file a port forward can be defined as:
+```
+Host           my_alias_for_port_forward
+HostName       remote_host_name
+User           remote_user_name
+Port           remote_port_number
+ServerAliveInterval 5
+ServerAliveCountMax 8
+LocalForward *:local_port localhost:remote_port
+```
+
+Thus, doing:
+```
+ssh -CfqNT my_alias_for_port_forward
+```
+would start a local port forward as specified in configuration
 
 
 Arguments details:  

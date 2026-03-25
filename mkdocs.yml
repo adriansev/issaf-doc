@@ -43,7 +43,7 @@ theme:
     font: false
     features:
         - navigation.tracking
-        # - toc.integrate
+        - toc.integrate
 
 extra_css:
   - stylesheets/fonts.css
