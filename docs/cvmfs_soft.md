@@ -36,13 +36,73 @@ Information taken from `/cvmfs/sft.cern.ch/README.md`
 Information taken from `/cvmfs/geant4.cern.ch/README`
 
 !!! info "Usage"
-
+    Geant 4 setup needs multiple componets, as such a script as the one below should be used  
+    on ISSAF one can use:
     ```
-    source /cvmfs/sft.cern.ch/lcg/contrib/gcc/14/x86_64-el9/setup.sh
-    source /cvmfs/geant4.cern.ch/geant4/11.3.ref03/x86_64-el9-gcc14-optdeb-MT/CMake-setup.sh
+    source /software/alice/enable_cvmfs_g4
+    ```
 
-    geant4-config --version
-    11.3.0
+    below the content of the script for reference:
+    ```
+    #!/usr/bin/env bash
+
+    [[ "${BASH_SOURCE[0]}" -ef "$0" ]] && { echo "This script should be sourced not executed"; exit 1; }
+
+    ################################     UTILITY FUNCTIONS
+    ITEM_IN_PATH () {
+    local LIST_STR ITEM path_arr n
+    [[ -z "${1}" ]] && return 1;
+    [[ -z "${2}" ]] && return 1;
+    LIST_STR="${1}"
+    ITEM="${2}"
+    IFS=':' read -ra path_arr <<< "${LIST_STR}"
+    for (( n=0; n < ${#path_arr[*]}; n++)); do [[ "$(realpath ${ITEM})" ]] || return 1; [[ "$(realpath ${ITEM})" == "$(realpath ${path_arr[n]})" ]] && return 0; done
+    return 1;
+    }
+
+    __PATH_INS () { [[ -z "${1}" ]] && return 1; ITEM_IN_PATH "${PATH}" ${1} && return 0; export PATH="${1}${PATH:+:}${PATH}"; }
+    __LDLIB_INS () { [[ -z "${1}" ]] && return 1; ITEM_IN_PATH "${LD_LIBRARY_PATH}" ${1} && return 0; export LD_LIBRARY_PATH="${1}${LD_LIBRARY_PATH:+:}${LD_LIBRARY_PATH}"; }
+    ####################################################################
+
+    export G4REPOSITORY="/cvmfs/geant4.cern.ch"
+    export SFTREPOSITORY="/cvmfs/sft.cern.ch"
+
+    ## SETUP GCC
+    GCC_VER="15"
+    GCC_ARCH="x86_64-el9"
+    GCC_SETUP="${SFTREPOSITORY}/lcg/contrib/gcc/${GCC_VER}/${GCC_ARCH}/setup.sh"
+    [[ ! -f "${GCC_SETUP}" ]] && { echo "GCC setup script not found! -> ${GCC_SETUP}"; exit 1; }
+    source "${GCC_SETUP}"
+
+    ## SETUP CLHEP
+    CLHEP_VER="2.4.7.1"
+    CLHEP_ARCH="${GCC_ARCH}-gcc${GCC_VER}-opt"
+    export CLHEP_ROOT="${G4REPOSITORY}/externals/clhep/${CLHEP_VER}/${CLHEP_ARCH}"
+    [[ ! -d "${CLHEP_ROOT}" ]] && { echo "CLHEP dir not found --> ${CLHEP_ROOT}"; exit 1; }
+    __PATH_INS "${CLHEP_ROOT}/bin"
+    __LDLIB_INS "${CLHEP_ROOT}/lib"
+
+    export C_INCLUDE_PATH=${CLHEP_ROOT}/include${C_INCLUDE_PATH:+:${C_INCLUDE_PATH}}
+    export CPLUS_INCLUDE_PATH=${CLHEP_ROOT}/include${CPLUS_INCLUDE_PATH:+:${CPLUS_INCLUDE_PATH}}
+
+    ## SETUP XERCES
+    XERCES_VER="3.3.0"
+    XERCES_ARCH="${GCC_ARCH}-gcc${GCC_VER}-opt"
+    export XercesC_ROOT="${G4REPOSITORY}/externals/XercesC/${XERCES_VER}/${XERCES_ARCH}"
+    [[ ! -d "${XercesC_ROOT}" ]] && { echo "XERCES dir not found --> ${XercesC_ROOT}"; exit 1; }
+    __PATH_INS "${XercesC_ROOT}/bin"
+    __LDLIB_INS "${XercesC_ROOT}/lib64"
+
+    export C_INCLUDE_PATH=${XercesC_ROOT}/include${C_INCLUDE_PATH:+:${C_INCLUDE_PATH}}
+    export CPLUS_INCLUDE_PATH=${XercesC_ROOT}/include${CPLUS_INCLUDE_PATH:+:${CPLUS_INCLUDE_PATH}}
+
+    ## SETUP GEANT4
+    G4TAG="11.4.ref02"
+    # add -MT for multithreading option
+    G4ARCH="x86_64-el9-gcc15-optdeb"
+    G4SETUP="${G4REPOSITORY}/geant4/${G4TAG}/${G4ARCH}/CMake-setup.sh"
+    [[ ! -f "${G4SETUP}" ]] && { echo "Geant4 setup script not found! --> ${G4SETUP}"; exit 1; }
+    source "${G4SETUP}"
     ```
 
 
