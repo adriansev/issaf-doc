@@ -9,20 +9,22 @@ ISS Analisys Facility is a (small) cluster dedicated to local research activitie
 
 Particular nodes specifications:
 ```
-HOSTNAMES    PARTITION   S:C:T CPUS  MEMORY
-issaf-0-0    CLUSTER    2:32:2  128  515000
-issaf-0-1    CLUSTER    2:32:2  128  515000
-issaf-0-2    CLUSTER    1:64:2  128  515000
-issaf-0-3    CLUSTER    1:64:2  128  515000
-issaf-0-4    CLUSTER    1:64:2  128  515000
-issaf-0-5    CLUSTER    1:64:2  128  515000
+HOSTNAMES    PARTITION    S:C:T CPUS   MEMORY WEIGHT
+issaf-0-0    CLUSTER     2:32:2  128   515000    100
+issaf-0-1    CLUSTER     2:32:2  128   515000    100
+issaf-0-2    CLUSTER     1:64:2  128   515000     10
+issaf-0-3    CLUSTER     1:64:2  128   515000     10
+issaf-0-4    CLUSTER     1:64:2  128   515000     10
+issaf-0-5    CLUSTER     1:64:2  128   515000     10
+issaf-0-6    CLUSTER    2:128:2  512  2097152     10
+issaf-0-6    GPU        2:128:2  512  2097152     10
 ```
 
 Total resources:
 ```
-Partition          #Nodes       #CPU_cores   Cores_pending   Job_Nodes  MaxJobTime Cores   Mem/Node
-Name         State Total  Idle  Total   Idle Resorc  Other   Min   Max  Day-hr:mn  /node   (GB)
-CLUSTER:*    up     6     6     768     768      0      0     1         20-00:00   128     515
+     Partition     #Nodes     #CPU_cores  Cores_pending   Job_Nodes MaxJobTime Cores Mem/Node
+     Name State Total  Idle  Total   Idle Resorc  Other   Min   Max  Day-hr:mn /node     (GB)
+CLUSTER:*    up     7     7   1280   1280      0      0     1         20-00:00   128     515+
 ```
 
 ### Storage resources
@@ -38,9 +40,6 @@ Filesystem               Size  Mounted on
 10.99.99.200:/storage01  200T  /data5       <-- RAID6 12xHDD
 10.99.99.200:/storage02  200T  /data6       <-- RAID6 12xHDD
 10.99.99.200:/storage03  200T  /data7       <-- RAID6 12xHDD
-10.99.99.201:/storage01  200T  /data8       <-- RAID6 12xHDD
-10.99.99.201:/storage02  200T  /data9       <-- RAID6 12xHDD
-10.99.99.201:/storage03  200T  /data10      <-- RAID6 12xHDD
 ```
 
 ## Resource usage
