@@ -12,20 +12,55 @@ Particular nodes specifications:
 HOSTNAMES    PARTITION    S:C:T CPUS   MEMORY WEIGHT
 issaf-0-0    CLUSTER     2:32:2  128   515000    100
 issaf-0-1    CLUSTER     2:32:2  128   515000    100
-issaf-0-2    CLUSTER     1:64:2  128   515000     10
-issaf-0-3    CLUSTER     1:64:2  128   515000     10
-issaf-0-4    CLUSTER     1:64:2  128   515000     10
-issaf-0-5    CLUSTER     1:64:2  128   515000     10
+issaf-0-2    CLUSTER     1:64:2  128   515000     50
+issaf-0-3    CLUSTER     1:64:2  128   515000     50
+issaf-0-4    CLUSTER     1:64:2  128   515000     50
+issaf-0-5    CLUSTER     1:64:2  128   515000     50
 issaf-0-6    CLUSTER    2:128:2  512  2097152     10
-issaf-0-6    GPU        2:128:2  512  2097152     10
+issaf-0-7    CLUSTER    2:144:2  576  2310755     10
 ```
 
 Total resources:
 ```
-     Partition     #Nodes     #CPU_cores  Cores_pending   Job_Nodes MaxJobTime Cores Mem/Node
-     Name State Total  Idle  Total   Idle Resorc  Other   Min   Max  Day-hr:mn /node     (GB)
-CLUSTER:*    up     7     7   1280   1280      0      0     1         20-00:00   128     515+
+     Partition     #Nodes     #CPU_cores     Job_Nodes MaxJobTime Cores Mem/Node
+     Name State     Total          Total     Min   Max  Day-hr:mn /node     (GB)
+CLUSTER:*    up         8           1856       1          2-00:00   128     515+
+      MPI    up         8           1856       1 infin    1-12:00   128     515+
+      GPU    up         1            512       1 infin    1-12:00   512    2097
+
 ```
+
+The `issaf-0-6` node have two H200 NVidia GPUs and is has associated the `GPU` queue:
+```
+HOSTNAMES    PARTITION    S:C:T CPUS   MEMORY WEIGHT
+issaf-0-6    GPU        2:128:2  512  2097152     10
+```
+
+```
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.71.05              Driver Version: 595.71.05      CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H200 NVL                Off |   00000000:D1:00.0 Off |                    0 |
+| N/A   31C    P0             73W /  600W |       0MiB / 143771MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA H200 NVL                Off |   00000000:F1:00.0 Off |                    0 |
+| N/A   32C    P0             74W /  600W |       0MiB / 143771MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+```
+
+```
+        GPU0    GPU1    CPU Affinity    NUMA Affinity   GPU NUMA ID
+GPU0     X      NV18    224-231,480-487 28              N/A
+GPU1    NV18     X      128-135,384-391 16              N/A
+```
+
+
 
 ### Storage resources
 
